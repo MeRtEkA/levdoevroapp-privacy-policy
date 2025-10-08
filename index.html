@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лев До Евро Бизнес Калкулатор | Готови за Еврото</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .logo svg {
+            width: 70px;
+            height: 70px;
+            fill: #1a1a2e;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #b0b0b0;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            color: #1a1a2e;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+            margin: 20px 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.6);
+        }
+
+        .features {
+            padding: 80px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 136, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #00ff88;
+        }
+
+        .feature-card p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        .screenshots {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .screenshots h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #00ff88;
+        }
+
+        .screenshot-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .screenshot {
+            width: 300px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 30px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .screenshot:hover {
+            transform: scale(1.05);
+            border-color: rgba(0, 255, 136, 0.6);
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .how-it-works {
+            padding: 80px 0;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #00ff88;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1a1a2e;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #00ff88;
+        }
+
+        .step p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        footer p {
+            color: #888;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 10px 5px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .features-grid,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .screenshot {
+                width: 250px;
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="10" width="80" height="80" rx="10" fill="none" stroke="currentColor" stroke-width="4"/>
+                    <circle cx="25" cy="28" r="6"/>
+                    <circle cx="50" cy="28" r="6"/>
+                    <circle cx="75" cy="28" r="6"/>
+                    <rect x="20" y="45" width="20" height="15" rx="2"/>
+                    <rect x="45" y="45" width="20" height="15" rx="2"/>
+                    <rect x="70" y="45" width="20" height="15" rx="2"/>
+                    <rect x="20" y="65" width="20" height="15" rx="2"/>
+                    <rect x="45" y="65" width="20" height="15" rx="2"/>
+                    <rect x="70" y="65" width="45" height="15" rx="2" transform="translate(185 145) rotate(180)"/>
+                </svg>
+            </div>
+            <h1>Лев До Евро<br>Бизнес Калкулатор</h1>
+            <p class="subtitle">Вашето решение за прехода от лев към евро<br>Бързо, точно и лесно връщане на ресто</p>
+            <div>
+                <span class="badge">🇧🇬 Специално за България</span>
+                <span class="badge">⚡ Мигновен резултат</span>
+                <span class="badge">💼 За бизнеса</span>
+            </div>
+        </header>
+
+        <div class="hero">
+            <a href="#" class="cta-button">📱 Изтегли сега от Google Play</a>
+        </div>
+
+        <section class="features">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💱</div>
+                    <h3>Автоматичен обмен</h3>
+                    <p>Приложението автоматично изчислява обмена между левове и евро, използвайки актуалния валутен курс за прехода.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🧮</div>
+                    <h3>Бърз калкулатор</h3>
+                    <p>Въвеждате сумата която получавате от клиента в левове и сметката му - моментално виждате колко евро да върнете като ресто.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Точни изчисления</h3>
+                    <p>Прецизни математически изчисления гарантират, че винаги връщате точната сума без грешки и объркване.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Бързи бутони</h3>
+                    <p>Удобни бутони за често използвани суми (5лв, 10лв, 20лв, 50лв, 100лв) за максимална скорост при работа с клиенти.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Лесен за използване</h3>
+                    <p>Интуитивен интерфейс, който всеки може да използва - не се изискват специални познания или обучение.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🇧🇬</div>
+                    <h3>Готови за Еврото</h3>
+                    <p>Подгответе бизнеса си за прехода към еврото. Работете уверено през целия преходен период.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <h2>Как работи?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Въведете сумата</h3>
+                    <p>Въведете сумата в левове, която получавате от клиента</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Добавете сметката</h3>
+                    <p>Въведете стойността на сметката на клиента</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Вземете рестото</h3>
+                    <p>Моментално виждате колко евро трябва да върнете като ресто</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Доволен клиент</h3>
+                    <p>Бързо и професионално обслужване без грешки</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="screenshots">
+            <h2>Вижте приложението</h2>
+            <div class="screenshot-grid">
+                <div class="screenshot">
+                    <div style="width: 100%; height: 100%; background: rgba(0,255,136,0.1); display: flex; align-items: center; justify-content: center; color: #00ff88; font-size: 1.2rem; text-align: center; padding: 20px;">
+                        Резултат екран<br>с детайлно изчисление
+                    </div>
+                </div>
+                <div class="screenshot">
+                    <div style="width: 100%; height: 100%; background: rgba(0,255,136,0.1); display: flex; align-items: center; justify-content: center; color: #00ff88; font-size: 1.2rem; text-align: center; padding: 20px;">
+                        Въвеждане на сума<br>с бързи бутони
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="hero">
+            <h2 style="margin-bottom: 30px; font-size: 2rem;">Готови да опростите бизнеса си?</h2>
+            <a href="#" class="cta-button">📱 Изтегли безплатно</a>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Лев До Евро Бизнес Калкулатор. Всички права запазени.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">Специално създадено за българския бизнес</p>
+        </footer>
+    </div>
+</body>
+</html>
