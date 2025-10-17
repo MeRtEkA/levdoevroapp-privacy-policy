@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лев До Евро Бизнес Калкулатор | Готови за Еврото</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -27,30 +28,299 @@
         header {
             padding: 60px 0 40px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .logo {
+        /* Realistic green smoke effect */
+        .smoke-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .smoke-particle {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(0, 255, 136, 0.4) 0%, 
+                rgba(0, 255, 136, 0.2) 25%, 
+                rgba(0, 255, 136, 0.1) 50%, 
+                rgba(0, 255, 136, 0.05) 75%, 
+                transparent 100%);
+            border-radius: 50%;
+            opacity: 0;
+            filter: blur(1px);
+            animation: smokeFlow 12s ease-out infinite;
+        }
+
+        .smoke-particle:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: -40px;
+            right: -40px;
+            animation-delay: 0s;
+        }
+
+        .smoke-particle:nth-child(2) {
             width: 120px;
             height: 120px;
-            margin: 0 auto 30px;
-            background: linear-gradient(135deg, #00ff88, #00cc6a);
-            border-radius: 30px;
+            top: 20px;
+            right: 10px;
+            animation-delay: 2s;
+        }
+
+        .smoke-particle:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            top: -20px;
+            right: 80px;
+            animation-delay: 4s;
+        }
+
+        .smoke-particle:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            top: 40px;
+            right: -20px;
+            animation-delay: 6s;
+        }
+
+        .smoke-particle:nth-child(5) {
+            width: 70px;
+            height: 70px;
+            top: 10px;
+            right: 120px;
+            animation-delay: 8s;
+        }
+
+        .smoke-particle:nth-child(6) {
+            width: 140px;
+            height: 140px;
+            top: -30px;
+            right: 50px;
+            animation-delay: 3s;
+        }
+
+        @keyframes smokeFlow {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.2) rotate(0deg);
+                filter: blur(0px);
+            }
+            10% {
+                opacity: 0.3;
+                transform: translate(-30px, 15px) scale(0.4) rotate(15deg);
+                filter: blur(0.5px);
+            }
+            25% {
+                opacity: 0.6;
+                transform: translate(-80px, 40px) scale(0.7) rotate(45deg);
+                filter: blur(1px);
+            }
+            40% {
+                opacity: 0.8;
+                transform: translate(-150px, 80px) scale(1) rotate(75deg);
+                filter: blur(1.5px);
+            }
+            60% {
+                opacity: 0.7;
+                transform: translate(-250px, 130px) scale(1.4) rotate(120deg);
+                filter: blur(2px);
+            }
+            80% {
+                opacity: 0.4;
+                transform: translate(-380px, 200px) scale(1.8) rotate(180deg);
+                filter: blur(3px);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-550px, 300px) scale(2.5) rotate(270deg);
+                filter: blur(4px);
+            }
+        }
+
+        /* Wispy smoke trails for more realism */
+        .smoke-trail {
+            position: absolute;
+            width: 4px;
+            height: 80px;
+            background: linear-gradient(to bottom,
+                rgba(0, 255, 136, 0.3) 0%,
+                rgba(0, 255, 136, 0.15) 30%,
+                rgba(0, 255, 136, 0.08) 60%,
+                transparent 100%);
+            border-radius: 50%;
+            opacity: 0;
+            filter: blur(0.5px);
+            animation: trailFlow 10s ease-out infinite;
+        }
+
+        .smoke-trail:nth-child(7) {
+            top: 30px;
+            right: 90px;
+            animation-delay: 1.5s;
+            transform: rotate(25deg);
+        }
+
+        .smoke-trail:nth-child(8) {
+            top: 50px;
+            right: 140px;
+            animation-delay: 4.5s;
+            transform: rotate(-15deg);
+        }
+
+        .smoke-trail:nth-child(9) {
+            top: 15px;
+            right: 180px;
+            animation-delay: 7s;
+            transform: rotate(35deg);
+        }
+
+        @keyframes trailFlow {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) rotate(var(--rotation, 0deg)) scaleY(0.3);
+                filter: blur(0px);
+            }
+            15% {
+                opacity: 0.4;
+                transform: translate(-50px, 25px) rotate(calc(var(--rotation, 0deg) + 20deg)) scaleY(0.8);
+                filter: blur(0.5px);
+            }
+            35% {
+                opacity: 0.6;
+                transform: translate(-120px, 60px) rotate(calc(var(--rotation, 0deg) + 45deg)) scaleY(1.2);
+                filter: blur(1px);
+            }
+            60% {
+                opacity: 0.5;
+                transform: translate(-220px, 120px) rotate(calc(var(--rotation, 0deg) + 80deg)) scaleY(1.6);
+                filter: blur(1.5px);
+            }
+            85% {
+                opacity: 0.2;
+                transform: translate(-350px, 200px) rotate(calc(var(--rotation, 0deg) + 120deg)) scaleY(2);
+                filter: blur(2px);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-500px, 280px) rotate(calc(var(--rotation, 0deg) + 160deg)) scaleY(2.5);
+                filter: blur(3px);
+            }
+        }
+
+        /* Additional small smoke wisps */
+        .smoke-wisp {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, 
+                rgba(0, 255, 136, 0.2) 0%, 
+                rgba(0, 255, 136, 0.1) 40%, 
+                transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            filter: blur(1px);
+            animation: wispFloat 8s ease-out infinite;
+        }
+
+        .smoke-wisp:nth-child(10) {
+            top: 25px;
+            right: 60px;
+            animation-delay: 2.5s;
+        }
+
+        .smoke-wisp:nth-child(11) {
+            top: 45px;
+            right: 100px;
+            animation-delay: 5.5s;
+        }
+
+        .smoke-wisp:nth-child(12) {
+            top: 35px;
+            right: 160px;
+            animation-delay: 8.5s;
+        }
+
+        @keyframes wispFloat {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.5);
+            }
+            20% {
+                opacity: 0.6;
+                transform: translate(-40px, 20px) scale(0.8);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translate(-120px, 60px) scale(1.2);
+            }
+            80% {
+                opacity: 0.3;
+                transform: translate(-220px, 120px) scale(1.6);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-350px, 200px) scale(2);
+            }
+        }
+
+        /* Ensure header content is above animations */
+        header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header layout with left and right sections */
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-left {
+            flex: 1;
+            text-align: left;
+        }
+
+        .header-right {
+            flex: 0 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.3);
-            animation: float 3s ease-in-out infinite;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        .phone-image {
+            width: 300px;
+            height: auto;
+            max-width: 100%;
+            object-fit: contain;
+            margin-left: -30px;
+            animation: phoneFloat 4s ease-in-out infinite;
         }
 
-        .logo svg {
-            width: 70px;
-            height: 70px;
-            fill: #1a1a2e;
+        @keyframes phoneFloat {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px); 
+            }
+            25% { 
+                transform: translateY(-8px) translateX(3px); 
+            }
+            50% { 
+                transform: translateY(-12px) translateX(-2px); 
+            }
+            75% { 
+                transform: translateY(-5px) translateX(4px); 
+            }
         }
 
         h1 {
@@ -86,6 +356,10 @@
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
             margin: 20px 0;
+        }
+
+        .cta-button i {
+            margin-right: 10px;
         }
 
         .cta-button:hover {
@@ -128,6 +402,11 @@
             justify-content: center;
             margin-bottom: 20px;
             font-size: 2rem;
+        }
+
+        .feature-icon i {
+            color: #fff;
+            font-size: 1.8rem;
         }
 
         .feature-card h3 {
@@ -175,14 +454,17 @@
             border-color: rgba(0, 255, 136, 0.6);
         }
 
-        .screenshot img {
+        .screenshot-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 28px;
         }
 
         .how-it-works {
             padding: 80px 0;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .how-it-works h2 {
@@ -193,38 +475,75 @@
         }
 
         .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #8a8a8a, #606060);
+            border-radius: 2px;
         }
 
         .step {
-            text-align: center;
+            position: relative;
+            margin-bottom: 60px;
+            padding-left: 40px;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
         }
 
         .step-number {
-            width: 80px;
-            height: 80px;
+            position: absolute;
+            left: -45px;
+            top: 0;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, #00ff88, #00cc6a);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: #1a1a2e;
-            margin: 0 auto 20px;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+            z-index: 2;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+            border-color: rgba(0, 255, 136, 0.4);
         }
 
         .step h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
             color: #00ff88;
+            font-weight: 600;
         }
 
         .step p {
             color: #b0b0b0;
             line-height: 1.6;
+            margin: 0;
         }
 
         footer {
@@ -248,23 +567,191 @@
             border: 1px solid rgba(0, 255, 136, 0.3);
         }
 
+        .badge i {
+            margin-right: 8px;
+        }
+
         @media (max-width: 768px) {
+            header {
+                padding: 40px 0 30px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .header-left {
+                text-align: center;
+            }
+
+            .phone-image {
+                width: 250px;
+                margin-left: 0;
+            }
+
             h1 {
                 font-size: 2rem;
+                margin-bottom: 15px;
             }
 
             .subtitle {
                 font-size: 1.1rem;
+                margin-bottom: 25px;
             }
 
-            .features-grid,
+            .badge {
+                font-size: 0.8rem;
+                padding: 6px 15px;
+                margin: 5px 3px;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .feature-card {
+                padding: 25px;
+            }
+
+            .feature-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .feature-card p {
+                font-size: 0.9rem;
+            }
+
             .steps {
-                grid-template-columns: 1fr;
+                padding-left: 40px;
+            }
+
+            .steps::before {
+                left: 20px;
+            }
+
+            .step-number {
+                left: -30px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+
+            .step {
+                padding-left: 30px;
+                margin-bottom: 50px;
+            }
+
+            .step-card {
+                padding: 20px;
+            }
+
+            .step h3 {
+                font-size: 1.1rem;
+            }
+
+            .step p {
+                font-size: 0.9rem;
             }
 
             .screenshot {
                 width: 250px;
                 height: 500px;
+            }
+
+            .how-it-works h2,
+            .features h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 30px 0 20px;
+            }
+
+            .header-content {
+                padding: 0 15px;
+                gap: 20px;
+            }
+
+            .phone-image {
+                width: 200px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 12px;
+                line-height: 1.2;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 20px;
+                line-height: 1.4;
+            }
+
+            .badge {
+                font-size: 0.75rem;
+                padding: 5px 12px;
+                margin: 4px 2px;
+                border-radius: 15px;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .steps {
+                padding-left: 30px;
+            }
+
+            .steps::before {
+                left: 15px;
+            }
+
+            .step-number {
+                left: -22px;
+                width: 34px;
+                height: 34px;
+                font-size: 0.9rem;
+            }
+
+            .step {
+                padding-left: 19px;
+                margin-bottom: 40px;
+            }
+
+            .step-card {
+                padding: 14px;
+            }
+
+            .feature-card {
+                padding: 20px;
+            }
+
+            .feature-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .feature-card p {
+                font-size: 0.85rem;
+            }
+
+            .step h3 {
+                font-size: 1rem;
+            }
+
+            .step p {
+                font-size: 0.85rem;
+            }
+
+            .how-it-works h2,
+            .features h2 {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -272,31 +759,40 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="10" y="10" width="80" height="80" rx="10" fill="none" stroke="currentColor" stroke-width="4"/>
-                    <circle cx="25" cy="28" r="6"/>
-                    <circle cx="50" cy="28" r="6"/>
-                    <circle cx="75" cy="28" r="6"/>
-                    <rect x="20" y="45" width="20" height="15" rx="2"/>
-                    <rect x="45" y="45" width="20" height="15" rx="2"/>
-                    <rect x="70" y="45" width="20" height="15" rx="2"/>
-                    <rect x="20" y="65" width="20" height="15" rx="2"/>
-                    <rect x="45" y="65" width="20" height="15" rx="2"/>
-                    <rect x="70" y="65" width="45" height="15" rx="2" transform="translate(185 145) rotate(180)"/>
-                </svg>
+            <!-- Green smoke effect flowing from top-right to center -->
+            <div class="smoke-container">
+                <div class="smoke-particle"></div>
+                <div class="smoke-particle"></div>
+                <div class="smoke-particle"></div>
+                <div class="smoke-particle"></div>
+                <div class="smoke-particle"></div>
+                <div class="smoke-particle"></div>
+                <div class="smoke-trail"></div>
+                <div class="smoke-trail"></div>
+                <div class="smoke-trail"></div>
+                <div class="smoke-wisp"></div>
+                <div class="smoke-wisp"></div>
+                <div class="smoke-wisp"></div>
             </div>
-            <h1>Лев До Евро<br>Бизнес Калкулатор</h1>
-            <p class="subtitle">Вашето решение за прехода от лев към евро<br>Бързо, точно и лесно връщане на ресто</p>
-            <div>
-                <span class="badge">🇧🇬 Специално за България</span>
-                <span class="badge">⚡ Мигновен резултат</span>
-                <span class="badge">💼 За бизнеса</span>
+            
+            <div class="header-content">
+                <div class="header-left">
+                    <h1>Лев До Евро<br>Бизнес Калкулатор</h1>
+                    <p class="subtitle">Вашето решение за прехода от лев към евро<br>Бързо, точно и лесно връщане на ресто</p>
+                    <div>
+                        <span class="badge"><i class="fas fa-flag"></i> Специално за България</span>
+                        <span class="badge"><i class="fas fa-bolt"></i> Мигновен резултат</span>
+                        <span class="badge"><i class="fas fa-briefcase"></i> За бизнеса</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <img src="imgs/phone.png" alt="Лев До Евро App" class="phone-image">
+                </div>
             </div>
         </header>
 
         <div class="hero">
-            <a href="#" class="cta-button">📱 Изтегли сега от Google Play</a>
+            <a href="#" class="cta-button"><i class="fas fa-mobile-alt"></i> Изтегли сега от Google Play</a>
         </div>
 
         <section class="features">
@@ -314,25 +810,25 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
                     <h3>Точни изчисления</h3>
                     <p>Прецизни математически изчисления гарантират, че винаги връщате точната сума без грешки и объркване.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
                     <h3>Бързи бутони</h3>
                     <p>Удобни бутони за често използвани суми (5лв, 10лв, 20лв, 50лв, 100лв) за максимална скорост при работа с клиенти.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
+                    <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
                     <h3>Лесен за използване</h3>
                     <p>Интуитивен интерфейс, който всеки може да използва - не се изискват специални познания или обучение.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon">🇧🇬</div>
+                    <div class="feature-icon"><i class="fas fa-flag"></i></div>
                     <h3>Готови за Еврото</h3>
                     <p>Подгответе бизнеса си за прехода към еврото. Работете уверено през целия преходен период.</p>
                 </div>
@@ -344,26 +840,34 @@
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>Въведете сумата</h3>
-                    <p>Въведете сумата в левове, която получавате от клиента</p>
+                    <div class="step-card">
+                        <h3>Въведете сумата</h3>
+                        <p>Въведете сумата в левове, която получавате от клиента</p>
+                    </div>
                 </div>
 
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>Добавете сметката</h3>
-                    <p>Въведете стойността на сметката на клиента</p>
+                    <div class="step-card">
+                        <h3>Добавете сметката</h3>
+                        <p>Въведете стойността на сметката на клиента</p>
+                    </div>
                 </div>
 
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>Вземете рестото</h3>
-                    <p>Моментално виждате колко евро трябва да върнете като ресто</p>
+                    <div class="step-card">
+                        <h3>Вземете рестото</h3>
+                        <p>Моментално виждате колко евро трябва да върнете като ресто</p>
+                    </div>
                 </div>
 
                 <div class="step">
                     <div class="step-number">4</div>
-                    <h3>Доволен клиент</h3>
-                    <p>Бързо и професионално обслужване без грешки</p>
+                    <div class="step-card">
+                        <h3>Доволен клиент</h3>
+                        <p>Бързо и професионално обслужване без грешки</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -372,26 +876,31 @@
             <h2>Вижте приложението</h2>
             <div class="screenshot-grid">
                 <div class="screenshot">
-                    <div style="width: 100%; height: 100%; background: rgba(0,255,136,0.1); display: flex; align-items: center; justify-content: center; color: #00ff88; font-size: 1.2rem; text-align: center; padding: 20px;">
-                        Резултат екран<br>с детайлно изчисление
-                    </div>
+                    <img src="imgs/1.png" alt="Екран 1 от приложението" class="screenshot-image">
                 </div>
                 <div class="screenshot">
-                    <div style="width: 100%; height: 100%; background: rgba(0,255,136,0.1); display: flex; align-items: center; justify-content: center; color: #00ff88; font-size: 1.2rem; text-align: center; padding: 20px;">
-                        Въвеждане на сума<br>с бързи бутони
-                    </div>
+                    <img src="imgs/2.png" alt="Екран 2 от приложението" class="screenshot-image">
+                </div>
+                <div class="screenshot">
+                    <img src="imgs/3.png" alt="Екран 3 от приложението" class="screenshot-image">
+                </div>
+                <div class="screenshot">
+                    <img src="imgs/4.png" alt="Екран 4 от приложението" class="screenshot-image">
                 </div>
             </div>
         </section>
 
         <div class="hero">
             <h2 style="margin-bottom: 30px; font-size: 2rem;">Готови да опростите бизнеса си?</h2>
-            <a href="#" class="cta-button">📱 Изтегли безплатно</a>
+            <a href="#" class="cta-button"><i class="fas fa-mobile-alt"></i> Изтегли безплатно</a>
         </div>
 
         <footer>
             <p>&copy; 2025 Лев До Евро Бизнес Калкулатор. Всички права запазени.</p>
             <p style="margin-top: 10px; font-size: 0.9rem;">Специално създадено за българския бизнес</p>
+            <p style="margin-top: 15px;">
+                <a href="privacy-policy.html" style="color: #00ff88; text-decoration: none;">Политика за поверителност</a>
+            </p>
         </footer>
     </div>
 </body>
